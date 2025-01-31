@@ -1,12 +1,14 @@
-const express = require('express');
-const http = require('http');
-const { Server } = require('socket.io');
-const connectDB = require('./config/db');
-const gameRoutes = require('./routes/gameRoutes');
+require('dotenv').config(); 
+
+import express, { json } from 'express';
+import { createServer } from 'http';
+import { Server } from 'socket.io';
+import connectDB from './config/db';
+import gameRoutes from './routes/gameRoutes';
 require('dotenv').config();
 
 const app = express();
-const server = http.createServer(app);
+const server = createServer(app);
 const io = new Server(server, {
   cors: {
     origin: '*',
@@ -14,7 +16,7 @@ const io = new Server(server, {
 });
 
 // Middleware
-app.use(express.json());
+app.use(json());
 
 // Routes
 app.use('/api/game', gameRoutes);
