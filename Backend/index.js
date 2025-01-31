@@ -1,11 +1,9 @@
-require('dotenv').config(); 
-
-import express, { json } from 'express';
-import { createServer } from 'http';
+import 'dotenv/config';
+import express from 'express';
 import { Server } from 'socket.io';
-import connectDB from './config/db';
-import gameRoutes from './routes/gameRoutes';
-require('dotenv').config();
+import { createServer } from 'http';
+import connectDB from './config/db.js';
+import gameRoutes from './routes/gameRoutes.js';
 
 const app = express();
 const server = createServer(app);
@@ -16,7 +14,7 @@ const io = new Server(server, {
 });
 
 // Middleware
-app.use(json());
+app.use(express.json());
 
 // Routes
 app.use('/api/game', gameRoutes);
